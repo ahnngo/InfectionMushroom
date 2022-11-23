@@ -1,6 +1,6 @@
 import copy
 import random
-INFECTED = 5
+INFECTED = 3
 
 
 class Cell:
@@ -20,18 +20,12 @@ class HealthyCell(Cell):
         super(HealthyCell, self).__init__(x, y)
         self.status = '.'
 
-    def get_status(self):
-        return self.status
-
 
 class ImmuneCell(Cell):
 
     def __init__(self, x, y):
         super(ImmuneCell, self).__init__(x, y)
         self.status = '#'
-
-    def get_status(self):
-        return self.status
 
 
 class InfectedCell(Cell):
