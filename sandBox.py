@@ -1,6 +1,6 @@
 import copy
 import random
-INFECTED = 2
+INFECTED = 5
 
 
 class Cell:
@@ -107,7 +107,7 @@ class Skin:
                 for nbr in nbrs:
                     r = row + nbr[0]
                     c = col + nbr[1]
-                    if (0 <= r < self.size) and (0 <= c < self.size) and identical_skin[r][c] == "*":
+                    if (0 <= r < self.size) and (0 <= c < self.size) and (identical_skin[r][c] == "*"):
                         infected_nbrs += 1
 
                 if identical_skin[row][col] == "*":
@@ -117,17 +117,14 @@ class Skin:
                     if self.skin[row][col].get_infected_rate() == 0:
                         self.skin[row][col] = ImmuneCell(row, col)
                 else:
-                    if infected_nbrs == 0:
-                        self.skin[row][col] = HealthyCell(row, col)
-                    else:
+                    if infected_nbrs != 0:
                         infected_chance = random.uniform(0, 1)
                         if 1 - infected_chance < (infected_nbrs / 8):
                             self.skin[row][col] = InfectedCell(row, col)
 
 
-
-myskin = Skin(5)
-for i in range(20):
+myskin = Skin(10)
+for i in range(50):
     myskin.get_infected()
     myskin.get_infected_score()
 
