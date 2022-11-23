@@ -47,28 +47,35 @@ class InfectedCell(Cell):
 
 class Skin:
 
-    def __init__(self, size):
+    def __init__(self, size, infected_rate=0.5, healing_rate=0.5):
         self.size = size
         self.skin = [[[None] * self.size for _ in range(self.size)] * self.size for _ in range(self.size)]
         for i in range(self.size):
             for j in range(self.size):
                 self.skin[i][j] = HealthyCell(i, j)
 
-        self.skin[1][1] = InfectedCell(1, 1)
+        self.skin[2][2] = InfectedCell(2, 2)
+        self.infected_rate = infected_rate
+        self.healing_rate = healing_rate
 
     def get_skin(self):
         return self.skin
 
-
-    def get_infected(self, infected_rate=0.5):
-        identical_skin = []
+    def get_visual(self):
+        visual_skin = []
         for i in range(self.size):
             sub = []
             for j in range(self.size):
                 sub.append(self.skin[i][j].get_status())
-            identical_skin.append(sub)
+            visual_skin.append(sub)
+        return visual_skin
 
-        print("Identical Skin:", identical_skin)
+    def get_infected(self, infected_rate=0.5):
+        identical_skin = self.get_visual()
+
+        for i in identical_skin:
+            print(i)
+        print()
 
         nbrs = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         for row in range(self.size):
@@ -79,25 +86,26 @@ class Skin:
                     c = col + nbr[1]
                     if (0 <= r < self.size) and (0 <= c < self.size) and identical_skin[r][c] == "*":
                         infected_nbrs += 1
-                        break
-                if infected_nbrs == 1:
-                    self.skin[row][col] = InfectedCell(row, col)
 
-
+                if infected_nbrs == 0 and identical_skin[row][col] != "*":
+                    self.skin[row][col] = HealthyCell(row, col)
+                else:
+                    infected_chance = random.uniform(0, 0.4) + float(infected_nbrs) * 20/100
+                    if infected_chance > 0.5:
+                        self.skin[row][col] = InfectedCell(row, col)
 
 
 myskin = Skin(5)
-batch = myskin.get_skin()
-
-container = []
-
 myskin.get_infected()
-container = []
-for i in range(5):
-    sub = []
-    for j in range(5):
-        sub.append(batch[i][j].get_status())
-    container.append(sub)
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
+myskin.get_infected()
 
-print(container)
+
 
