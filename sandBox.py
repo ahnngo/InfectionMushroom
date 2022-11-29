@@ -1,6 +1,6 @@
-import copy
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Cell:
 
@@ -95,7 +95,7 @@ class Skin:
             visual_skin.append(sub)
         return np.array(visual_skin)
 
-    def get_infected(self, infected_rate=0.5):
+    def get_infected(self, healing_rate=0.5):
 
         nbrs = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         for row in range(self.size):
@@ -117,7 +117,7 @@ class Skin:
                 if self.skin[row][col].get_status() == "*":
                     self.skin[row][col].increment_infected_day()
                     healing_chance = random.uniform(0, 1) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
-                    if healing_chance > 0.5:
+                    if healing_chance > (1 - healing_rate):
                         self.skin[row][col].heal()
                     # if the infected score is 0, the cell becomes immune
                     if self.skin[row][col].get_infected_score() == 0:
@@ -130,16 +130,47 @@ class Skin:
                             self.skin[row][col] = InfectedCell()
 
 
-myskin = Skin(10)
-for i in range(100):
-    myskin.get_infected()
-    print("Step: ", i)
-    print()
-    print(myskin.get_visual())
-    print()
-    print(myskin.get_infected_matrix())
-    print()
-    print(myskin.get_infected_day_matrix())
+def visualize_chart(matrix):
+    plt.matshow(matrix)
+    plt.colorbar()
+    plt.show()
+
+
+def main():
+    size = int(input("Skin size (n x n): "))
+    myskin = Skin(size)
+    while True:
+        next_step = int(input("Update step (int, put 0 to visualize the skin patch)? : "))
+        if next_step > 0:
+            for i in range(next_step):
+                myskin.get_infected()
+        else:
+            print("Show cells' status")
+            print(myskin.get_visual())
+            skin = myskin.get_visual()
+
+            # skin[skin == '*'] = 170
+            # print("Here")
+            # skin[skin == '#'] = 50
+            # skin[skin == '.'] = 0
+            # print(skin)
+            # visualize_chart(skin)
+
+            print("Show infected score of each cell")
+            print(myskin.get_infected_matrix())
+
+            print("Show infected days of each cell")
+            print(myskin.get_infected_day_matrix())
+
+            stop = input("Stop? (y/n): ")
+            if stop == "Yes":
+                break
+            else:
+                continue
+
+
+if __name__ == "__main__":
+    main()
 
 
 
