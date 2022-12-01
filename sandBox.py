@@ -97,7 +97,7 @@ class Skin:
             visual_skin.append(sub)
         return np.array(visual_skin)
 
-    def get_infected(self, healing_rate=0.5):
+    def get_infected(self):
 
         nbrs = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         for row in range(self.size):
@@ -119,7 +119,7 @@ class Skin:
                 if self.skin[row][col].get_status() == "*":
                     self.skin[row][col].increment_infected_day()
                     healing_chance = random.uniform(0, 1) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
-                    if healing_chance > (1 - healing_rate):
+                    if healing_chance > (1 - self.healing_rate):
                         self.skin[row][col].heal()
                     # if the infected score is 0, the cell becomes immune
                     if self.skin[row][col].get_infected_score() == 0:
@@ -127,7 +127,7 @@ class Skin:
 
                 else:
                     if infected_nbrs != 0:
-                        infected_chance = random.uniform(0, 1)
+                        infected_chance = random.uniform(0, 1) + self.infected_rate
                         if 1 - infected_chance < (infected_nbrs / 8):
                             self.skin[row][col] = InfectedCell()
 
@@ -164,6 +164,7 @@ def main():
         if next_step > 0:
             for i in range(next_step):
                 myskin.get_infected()
+                myskin.visualize()
         else:
             # print("Show cells' status")
             # print(myskin.get_visual())
