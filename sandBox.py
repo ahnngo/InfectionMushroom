@@ -2,6 +2,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class Cell:
 
     def __init__(self):
@@ -148,13 +149,6 @@ def main():
             print("Show cells' status")
             print(myskin.get_visual())
             skin = myskin.get_visual()
-
-            # skin[skin == '*'] = 170
-            # print("Here")
-            # skin[skin == '#'] = 50
-            # skin[skin == '.'] = 0
-            # print(skin)
-            # visualize_chart(skin)
 
             print("Show infected score of each cell")
             print(myskin.get_infected_matrix())
