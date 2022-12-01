@@ -130,11 +130,30 @@ class Skin:
                         if 1 - infected_chance < (infected_nbrs / 8):
                             self.skin[row][col] = InfectedCell()
 
+    def visualize(self):
+        """
+        Visualize the skin using matplotlib
+        :return: None
+        """
+        visual_skin = self.get_visual().tolist()
+        for i in range(len(visual_skin)):
+            for j in range(len(visual_skin)):
+                if visual_skin[i][j] == '.':
+                    visual_skin[i][j] = int(0)
+                elif visual_skin[i][j] == '*':
+                    visual_skin[i][j] = int(1)
+                else:
+                    visual_skin[i][j] = int(2)
 
-def visualize_chart(matrix):
-    plt.matshow(matrix)
-    plt.colorbar()
-    plt.show()
+        visual_skin = np.array(visual_skin)
+        print(type(visual_skin[9][0]))
+        colors = np.array([[0, 255, 0],         # green
+                           [255, 0, 0],         # red
+                           [220, 220, 220]])    # gray
+
+        plot = colors[visual_skin]
+        plt.imshow(plot)
+        plt.show()
 
 
 def main():
@@ -148,7 +167,7 @@ def main():
         else:
             print("Show cells' status")
             print(myskin.get_visual())
-            skin = myskin.get_visual()
+            myskin.visualize()
 
             print("Show infected score of each cell")
             print(myskin.get_infected_matrix())
@@ -157,8 +176,8 @@ def main():
             print(myskin.get_infected_day_matrix())
 
             stop = input("Stop? (y/n): ")
-            if stop == "Yes":
-                break
+            if stop == "y":
+                return
             else:
                 continue
 
