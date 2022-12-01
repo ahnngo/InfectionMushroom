@@ -56,7 +56,8 @@ class Skin:
             for j in range(self.size):
                 self.skin[i][j] = HealthyCell()
 
-        self.skin[2][2] = InfectedCell()
+        x, y = random.randint(0, self.size - 1), random.randrange(0, self.size - 1)
+        self.skin[x][y] = InfectedCell()
         self.infected_rate = infected_rate
         self.healing_rate = healing_rate
 
@@ -146,7 +147,6 @@ class Skin:
                     visual_skin[i][j] = int(2)
 
         visual_skin = np.array(visual_skin)
-        print(type(visual_skin[9][0]))
         colors = np.array([[0, 255, 0],         # green
                            [255, 0, 0],         # red
                            [220, 220, 220]])    # gray
@@ -165,15 +165,15 @@ def main():
             for i in range(next_step):
                 myskin.get_infected()
         else:
-            print("Show cells' status")
-            print(myskin.get_visual())
+            # print("Show cells' status")
+            # print(myskin.get_visual())
             myskin.visualize()
 
-            print("Show infected score of each cell")
-            print(myskin.get_infected_matrix())
-
-            print("Show infected days of each cell")
-            print(myskin.get_infected_day_matrix())
+            # print("Show infected score of each cell")
+            # print(myskin.get_infected_matrix())
+            #
+            # print("Show infected days of each cell")
+            # print(myskin.get_infected_day_matrix())
 
             stop = input("Stop? (y/n): ")
             if stop == "y":
