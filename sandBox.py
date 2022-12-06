@@ -49,7 +49,7 @@ class InfectedCell(Cell):
 
 class Skin:
 
-    def __init__(self, size, infected_rate=0.5, healing_rate=0.5):
+    def __init__(self, size, infected_rate, healing_rate):
         self.size = size
         self.skin = [[[None] * self.size for _ in range(self.size)] * self.size for _ in range(self.size)]
         for i in range(self.size):
@@ -118,8 +118,9 @@ class Skin:
                 # if the cell is infected, calculate the probability of getting healed
                 if self.skin[row][col].get_status() == "*":
                     self.skin[row][col].increment_infected_day()
-                    healing_chance = random.uniform(0, 1) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
-                    if healing_chance > (1 - self.healing_rate):
+                    healing_chance = random.uniform(0, .8) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
+                    print('hr',healing_chance,self.healing_rate)
+                    if healing_chance < (self.healing_rate):
                         self.skin[row][col].heal()
                     # if the infected score is 0, the cell becomes immune
                     if self.skin[row][col].get_infected_score() == 0:
@@ -127,8 +128,9 @@ class Skin:
 
                 else:
                     if infected_nbrs != 0:
-                        infected_chance = random.uniform(0, 1) + self.infected_rate
-                        if 1 - infected_chance < (infected_nbrs / 8):
+                        infected_chance = random.uniform(0, .8) + infected_nbrs * 0.05
+                        print(infected_chance, self.infected_rate)
+                        if infected_chance < self.infected_rate:
                             self.skin[row][col] = InfectedCell()
 
     def visualize(self):
@@ -166,16 +168,7 @@ def main():
                 myskin.get_infected()
                 myskin.visualize()
         else:
-            # print("Show cells' status")
-            # print(myskin.get_visual())
             myskin.visualize()
-
-            # print("Show infected score of each cell")
-            # print(myskin.get_infected_matrix())
-            #
-            # print("Show infected days of each cell")
-            # print(myskin.get_infected_day_matrix())
-
             stop = input("Stop? (y/n): ")
             if stop == "y":
                 return

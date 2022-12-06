@@ -25,7 +25,7 @@ class Gui:
         title = Label(root, text='Infection Simulator',font=('sans',50)).grid(row=0,column=0,columnspan=3)
 
         paramframe = LabelFrame(root,width=450,height=400,highlightcolor='Red',relief='raised',pady=15,padx=10)
-        paramframe.grid(row=1,column=0,pady=100,padx=120,sticky='n')
+        paramframe.grid(row=1,column=0,pady=75,padx=120,sticky='n')
 
         canvas = Canvas(root).grid(row=1,column=1)
 
@@ -44,12 +44,13 @@ class Gui:
         days_input = Entry(paramframe, font=('times new roman', 12), justify='center')
         days_input.grid(row=4, column=1, padx=15, columnspan=2)
 
-        start = Button(root,text='Simulate',font=('times new roman',30),bg='green',command=lambda: startsimulation(int(size_input.get()), hr_slider.get(), ir_slider.get(),self,int(days_input.get()))).grid(row=2,column=0,stick='n')
+        start = Button(root,text='Simulate',font=('times new roman',30),bg='green',command=lambda: startsimulation(int(size_input.get()), hr_slider.get(), ir_slider.get(),self,int(days_input.get()))).grid(row=3,column=0,stick='n')
 
 
         self.graph = canvas
 
-    def update_animate(self,visual_skin):
+
+    def update_animate(self,visual_skin, day):
 
         for i in range(len(visual_skin)):
             for j in range(len(visual_skin)):
@@ -70,19 +71,21 @@ class Gui:
         # ax.plot(plotfin)
 
         ax.imshow(plotfin)
+        plt.title('Day: ' + str(day))
         canvas = plt.Figure()
         canvas = FigureCanvasTkAgg(fig,
                                   master=self.root)
         canvas.get_tk_widget().grid(row=1,column=1,padx=15,pady=20,sticky='w')
         # self.graph.draw()
         self.root.update()
-        # plt.show()
 def startsimulation(size,healingrate,infectionrate,gui,days):
 
-    simulation = logic.Skin(size=size,infected_rate=infectionrate//100,healing_rate=healingrate)
+    simulation = logic.Skin(size=size,infected_rate=infectionrate/100,healing_rate=healingrate/100)
+    print(infectionrate,healingrate)
     for i in range(days+1):
         simulation.get_infected()
-        gui.update_animate(simulation.get_visual().tolist())
+        gui.update_animate(simulation.get_visual().tolist(), i)
+        # gui.updatedaylabel('Day: '+str(i))
         # sleep(.2)
 
 
