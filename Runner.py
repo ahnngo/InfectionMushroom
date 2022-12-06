@@ -1,2 +1,2 @@
-import GUI as gui
+import frontend as gui
 screen = gui.Gui()

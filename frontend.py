@@ -4,7 +4,7 @@
 ###################################################################
 from time import sleep
 from tkinter import *
-import sandBox as logic
+import backend as logic
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
@@ -68,7 +68,6 @@ class Gui:
 
         plotfin = colors[visual_skin]
         fig, ax = plt.subplots()
-        # ax.plot(plotfin)
 
         ax.imshow(plotfin)
         plt.title('Day: ' + str(day))
@@ -76,7 +75,6 @@ class Gui:
         canvas = FigureCanvasTkAgg(fig,
                                   master=self.root)
         canvas.get_tk_widget().grid(row=1,column=1,padx=15,pady=20,sticky='w')
-        # self.graph.draw()
         self.root.update()
 def startsimulation(size,healingrate,infectionrate,gui,days):
 
@@ -85,8 +83,7 @@ def startsimulation(size,healingrate,infectionrate,gui,days):
     for i in range(days+1):
         simulation.get_infected()
         gui.update_animate(simulation.get_visual().tolist(), i)
-        # gui.updatedaylabel('Day: '+str(i))
-        # sleep(.2)
+
 
 
 
