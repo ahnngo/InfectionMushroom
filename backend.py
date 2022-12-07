@@ -118,9 +118,9 @@ class Skin:
                 # if the cell is infected, calculate the probability of getting healed
                 if self.skin[row][col].get_status() == "*":
                     self.skin[row][col].increment_infected_day()
-                    healing_chance = random.uniform(0, .8) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
+                    healing_chance = random.uniform(0, 1) + self.skin[row][col].get_infected_day() * 0.05 - infected_nbrs * 0.05
                     # print('hr',healing_chance,self.healing_rate)
-                    if healing_chance < self.healing_rate:
+                    if healing_chance > self.healing_rate:
                         self.skin[row][col].heal()
                     # if the infected score is 0, the cell becomes immune
                     if self.skin[row][col].get_infected_score() == 0:
@@ -129,7 +129,6 @@ class Skin:
                 else:
                     if infected_nbrs != 0:
                         infected_chance = random.uniform(0, .8) + infected_nbrs * 0.05
-                        # print(infected_chance, self.infected_rate)
                         if infected_chance < self.infected_rate:
                             self.skin[row][col] = InfectedCell()
 
