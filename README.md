@@ -61,7 +61,7 @@ In the `get_infected()` method of the `Skin` class, the 'nbrs' list is defined a
       o	startsimulation():function is called when the user clicks the "Simulate" button in the GUI. It takes five parameters: the size of the simulation, the healing rate, the infection rate, the Gui object, and the number of days to simulate.
 
 ### Complexity of Frontend:
-The complexity of this code is O(days * $size^2$). The update_animate() method has a nested for loop that runs through each element of the 'visual_skin' list, which has length size and is called days times in the 'startSimulation()' method. This means that the 'update_animate()' method will be called 'days * $size^2$' times, which is the complexity of the code.
+The complexity of this code is O(days * $size^2$). The update_animate() method has a nested for loop that runs through each element of the `visual_skin` list, which has length size and is called days times in the `startSimulation()` method. This means that the `update_animate()` method will be called `days * $size^2$` times, which is the complexity of the code.
 
 # How to Improve the complexity of Frontend code:
 •	Use a data structures and algorithms that have better time complexity. For example, alternate using nested for loops to iterate through the elements of the `visual_skin` array. We could use a single loop to iterate through all the elements. Also, we could use a dictionary to store the corresponding integer values for each skin cell instead of using multiple if-else statements.
