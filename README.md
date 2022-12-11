@@ -43,9 +43,9 @@ This is a simulation of an infection on a two-dimensional surface, such as skin.
 ### Complexity Of Backend.py:
 Let n x n or $n^2$ be the size of the skin.
 
-- Once the skin is initialized, the time complexity for the initialization will be O($n^2$) to simulate the skin. It will also create a 2D array to store $n^n$ cells, leading to a space complexity of O($n^2$).
-- Each method among `get_visual()`, `get_infected_matrix()`, `get_infected_day_matrix()`, `visualize()` costs O($n^2$) time and space to loop through each cell and return the representation of the skin. 
-- About `get_infected()`, since each cell has the maximum of eight neighbors (except the edge cells), the time and space complexity to update the state of the skin are also O($n^2$).
+- Once the skin is initialized, the time complexity for the initialization will be O( $n^2$ ) to simulate the skin. It will also create a 2D array to store $n^n$ cells, leading to a space complexity of O( $n^2$ ).
+- Each method among `get_visual()`, `get_infected_matrix()`, `get_infected_day_matrix()`, `visualize()` costs O( $n^2$ ) time and space to loop through each cell and return the representation of the skin. 
+- About `get_infected()`, since each cell has the maximum of eight neighbors (except the edge cells), the time and space complexity to update the state of the skin are also O( $n^2$ ).
 
 ### Complexity Of Backend.py:
 One way to improve the complexity of this code would be to only update the state of cells that are in proximity to infected cells, rather than looping over the entire grid. This would reduce the number of cells that need to be updated each time, reducing the overall complexity to O(k), where k is the number of infected cells. 
@@ -58,13 +58,13 @@ In the `get_infected()` method of the `Skin` class, the 'nbrs' list is defined a
 
       o	drawWindow(): function creates an infection simulator's GUI. The function takes a root parameter, likely the GUI's root window, and creates widgets in it. It creates a window title, a parameter frame, a simulation canvas, and a simulation start button. Function sets object's graph attribute to canvas. When the "Simulate" button is clicked, the startsimulation function is called with the sample size, healing rate, infection rate, and number of days entered by the user. The code snippet doesn't define startsimulation, so it's unclear what it does.
       o	update_animate(): Method animates simulation. It accepts a 2D list of the simulation's state and the current day. It converts the 2D list into a numpy array, sets each cell's color based on its value, and displays the array on the canvas. It also updates the image's date.
-      o	Def 'startsimulation()':function is called when the user clicks the "Simulate" button in the GUI. It takes five parameters: the size of the simulation, the healing rate, the infection rate, the Gui object, and the number of days to simulate.
+      o	startsimulation():function is called when the user clicks the "Simulate" button in the GUI. It takes five parameters: the size of the simulation, the healing rate, the infection rate, the Gui object, and the number of days to simulate.
 
 ### Complexity of Frontend:
 The complexity of this code is O(days * $size^2$). The update_animate() method has a nested for loop that runs through each element of the 'visual_skin' list, which has length size and is called days times in the 'startSimulation()' method. This means that the 'update_animate()' method will be called 'days * $size^2$' times, which is the complexity of the code.
 
 # How to Improve the complexity of Frontend code:
-•	Use a data structures and algorithms that have better time complexity. For example, alternate using nested for loops to iterate through the elements of the 'visual_skin' array. We could use a single loop to iterate through all the elements. Also, we could use a dictionary to store the corresponding integer values for each skin cell instead of using multiple if-else statements.
+•	Use a data structures and algorithms that have better time complexity. For example, alternate using nested for loops to iterate through the elements of the `visual_skin` array. We could use a single loop to iterate through all the elements. Also, we could use a dictionary to store the corresponding integer values for each skin cell instead of using multiple if-else statements.
 
 •	Simplify our Computations: instead of creating a new figure and axes object for each update, you could create these objects once and then update their properties as needed.
 
@@ -73,9 +73,9 @@ The complexity of this code is O(days * $size^2$). The update_animate() method h
 
 •	Initialize the 2D skin matrix using the np.empty method instead of using a nested list comprehension. This should make the initialization faster because it pre-allocates the memory for the array and doesn't have to go through the process of creating each element in the array.
 
-•	In the get_infected method, instead of looping through each cell in the skin matrix to find the number of infected cells around it, you can use the scipy.ndimage.generic_filter method to apply a filter to the skin matrix that counts the number of infected cells around each cell. This should be much faster than looping through each cell individually.
+•	In the `get_infected()` method, instead of looping through each cell in the skin matrix to find the number of infected cells around it, you can use the scipy.ndimage.generic_filter method to apply a filter to the skin matrix that counts the number of infected cells around each cell. This should be much faster than looping through each cell individually.
 
-•	In the get_visual, get_infected_matrix, and get_infected_day_matrix methods, you can use the np.vectorize method to apply a function to each element in the skin matrix to get the desired information. This will be much faster than using a nested for loop
+•	In the `get_visual()`, `get_infected_matrix()`, and `get_infected_day_matrix()` methods, you can use the np.vectorize method to apply a function to each element in the skin matrix to get the desired information. This will be much faster than using a nested for loop.
 
 
 # Learnings:
