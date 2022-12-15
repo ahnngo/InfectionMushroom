@@ -79,10 +79,12 @@ The complexity of this code is O(days * $size^2$). The update_animate() method h
 
 
 # Learnings:
+One important idea from the Infection Mushroom project  is the use of simulation to model and study the spread of an infection. This involves creating a model of the system being studied (in this case, a two-dimensional surface with infected and healthy cells) and using algorithms and mathematical equations to represent the behavior and interactions of the components of the system. The simulation can then be run and the results analyzed to gain insights into the spread of the infection. This approach is a common technique in computer science for studying complex systems and making predictions about their behavior.
 
 
 
 # Conclusions and Discussion:
+In conclusion, the Infection Mushroom project has successfully developed a simulation of the spread of an infection on a two-dimensional surface. The Skin class, with its get_infected() and visualize() methods, effectively models the behavior of healthy, immune, and infected cells and allows the spread of the infection to be studied. By adjusting the infected_rate and healing_rate attributes, the simulation can be used to explore how different factors affect the spread of the infection. This project has the potential to be a useful tool for studying the spread of diseases in populations. Further work on the project could include refining the model to better represent real-world infections, as well as incorporating additional features such as the ability to introduce interventions (e.g. vaccines or quarantine measures) and study their impact on the spread of the infection.
 
 
 
