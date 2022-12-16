@@ -54,8 +54,6 @@ class Gui:
 
         self.graph = canvas
 
-    def update_animate(self,visual_skin):
-        '''
     def update_animate(self, visual_skin, day):
         """
         Updates the matplotb by re-processing the skins output and converting into a matplotlib
