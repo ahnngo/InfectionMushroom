@@ -32,7 +32,7 @@ class InfectedCell(Cell):
 
     def __init__(self):
         super(InfectedCell, self).__init__()
-        self.infected = 4       # number of times an infected cell needs to heal to get immune
+        self.infected = 6       # number of times an infected cell needs to heal to get immune
         self.status = '*'
         self.infectedDay = 0
 
