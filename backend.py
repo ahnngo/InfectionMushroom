@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 
 
 class Cell:
-
+    """
+    An abstraction for HealthyCell, ImmuneCell, and InfectedCell
+    """
     def __init__(self):
         self.status = None
 
@@ -30,7 +32,7 @@ class InfectedCell(Cell):
 
     def __init__(self):
         super(InfectedCell, self).__init__()
-        self.infected = 6
+        self.infected = 4       # number of times an infected cell needs to heal to get immune
         self.status = '*'
         self.infectedDay = 0
 
@@ -51,11 +53,12 @@ class Skin:
 
     def __init__(self, size, infected_rate, healing_rate):
         self.size = size
+        # create a matrix of size n x n, each element is initialized with a healthy cell
         self.skin = [[[None] * self.size for _ in range(self.size)] * self.size for _ in range(self.size)]
         for i in range(self.size):
             for j in range(self.size):
                 self.skin[i][j] = HealthyCell()
-
+        # randomize an infected cell
         x, y = random.randint(0, self.size - 1), random.randrange(0, self.size - 1)
         self.skin[x][y] = InfectedCell()
         self.infected_rate = infected_rate
@@ -65,6 +68,9 @@ class Skin:
         return self.skin
 
     def get_visual(self):
+        """
+        :return: a numpy array of cells' status
+        """
         visual_skin = []
         for i in range(self.size):
             sub = []
@@ -74,6 +80,9 @@ class Skin:
         return np.array(visual_skin)
 
     def get_infected_matrix(self):
+        """
+        :return: a numpy array of cells' status, but if the cell is infected, show infected instance instead
+        """
         visual_skin = []
         for i in range(self.size):
             sub = []
@@ -86,6 +95,9 @@ class Skin:
         return np.array(visual_skin)
 
     def get_infected_day_matrix(self):
+        """
+        :return: a numpy array of cells' status, but if the cell is infected, show infectedDay instance instead
+        """
         visual_skin = []
         for i in range(self.size):
             sub = []
@@ -98,7 +110,11 @@ class Skin:
         return np.array(visual_skin)
 
     def get_infected(self):
-
+        """
+        Update status of the skin after 1 day
+        :return: None
+        """
+        # A cell has 8 neighbors: top, bottom, left, right, and 4 diagonal
         nbrs = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         for row in range(self.size):
             for col in range(self.size):
