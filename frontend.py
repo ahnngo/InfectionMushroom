@@ -54,6 +54,8 @@ class Gui:
 
         self.graph = canvas
 
+    def update_animate(self,visual_skin):
+        '''
     def update_animate(self, visual_skin, day):
         """
         Updates the matplotb by re-processing the skins output and converting into a matplotlib
@@ -79,16 +81,18 @@ class Gui:
         # Creates a matlib plot with the visual skin using the color established above
         plotfin = colors[visual_skin]
         fig, ax = plt.subplots()
+        # ax.plot(plotfin)
 
         ax.imshow(plotfin)
-        plt.title('Day: ' + str(day))
         canvas = plt.Figure()
         # Converts the matplotlib plot object into a canvas
         canvas = FigureCanvasTkAgg(fig,
                                    master=self.root)
         canvas.get_tk_widget().grid(row=1, column=1, padx=15, pady=20, sticky='w')
         # Refreshes the page so the new matrix can be displayed
-        self.root.update()
+        # self.graph.draw()
+        self.root.update()      #Refreshes the page so the new matrix can be displayed
+        # plt.show()
 
 
 def startsimulation(size, healingrate, infectionrate, gui, days):
